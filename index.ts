@@ -1,10 +1,13 @@
-import { createTextAnalyticsClient } from "./src/textAnalyticsClient";
+import TextAnalytics from "./src";
 import { DefaultAzureCredential } from "@azure/identity";
+import { config } from "dotenv";
+
+config();
 
 async function main() {
-  const client = createTextAnalyticsClient(
+  const client = TextAnalytics(
     new DefaultAzureCredential(),
-    "https://localhost:3000"
+    "https://joheredi-ta.cognitiveservices.azure.com"
   );
 
   const documents = [
@@ -13,11 +16,21 @@ async function main() {
     { id: "third", text: "asdfasdf asdfasdfasdfer" },
   ];
 
-  const languagesResult = await client.request("POST /languages", {
+  const languagesResult = await client.request("POST /sentiment", {
     documents,
   });
 
-  console.log(
-    languagesResult.data.documents.map((d) => console.log(d.detectedLanguage))
-  );
+  if (languagesResult.status === 200) {
+    for (const result of languagesResult.parsedBody.documents) {
+      console.log(
+        `Sentence with Id: '${result.id}' detected sentiment: ${
+          result.sentiment
+        } with ${result.confidenceScores[result.sentiment] * 100}% confidence`
+      );
+    }
+  } else {
+    console.error(languagesResult.parsedBody.error.message);
+  }
 }
+
+main().catch(console.error);
