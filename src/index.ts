@@ -59,80 +59,84 @@ import {
   createDefaultPipeline,
   getCachedDefaultHttpsClient,
 } from "./clientHelpers";
+type Request = <T extends keyof Routes>(
+  path: T,
+  ...args: Routes[T][0] extends undefined
+    ? [options?: RequestParameters]
+    : [options: Routes[T][0] & RequestParameters]
+) => Routes[T][1];
 
-export interface Request {
-  (
-    route: "POST /analyze",
-    options?: AnalyzeParameters & RequestParameters
-  ): Promise<Analyze202Response | Analyze400Response | Analyze500Response>;
-  (
-    route: "GET /analyze/jobs/{jobId}",
-    options: AnalyzeStatusParameters & RequestParameters
-  ): Promise<
-    | AnalyzeStatus200Response
-    | AnalyzeStatus404Response
-    | AnalyzeStatus500Response
-  >;
-  (
-    route: "GET /entities/health/jobs/{jobId}",
-    options: HealthStatusParameters & RequestParameters
-  ): Promise<
-    HealthStatus200Response | HealthStatus404Response | HealthStatus500Response
-  >;
-  (
-    route: "DELETE /entities/health/jobs/{jobId}",
-    options: CancelHealthJobParameters & RequestParameters
-  ): Promise<
-    | CancelHealthJob202Response
-    | CancelHealthJob404Response
-    | CancelHealthJob500Response
-  >;
-  (
-    route: "POST /entities/health/jobs",
-    options: HealthParameters & RequestParameters
-  ): Promise<Health202Response | Health400Response | Health500Response>;
-  (
-    route: "POST /entities/recognition/general",
-    options: EntitiesRecognitionGeneralParameters & RequestParameters
-  ): Promise<
-    | EntitiesRecognitionGeneral200Response
-    | EntitiesRecognitionGeneral400Response
-    | EntitiesRecognitionGeneral500Response
-  >;
-  (
-    route: "POST /entities/recognition/pii",
-    options: EntitiesRecognitionPiiParameters & RequestParameters
-  ): Promise<
-    | EntitiesRecognitionPii200Response
-    | EntitiesRecognitionPii400Response
-    | EntitiesRecognitionPii500Response
-  >;
-  (
-    route: "POST /entities/linking",
-    options: EntitiesLinkingParameters & RequestParameters
-  ): Promise<
-    | EntitiesLinking200Response
-    | EntitiesLinking400Response
-    | EntitiesLinking500Response
-  >;
-  (
-    route: "POST /keyPhrases",
-    options: KeyPhrasesParameters & RequestParameters
-  ): Promise<
-    KeyPhrases200Response | KeyPhrases400Response | KeyPhrases500Response
-  >;
-  (
-    route: "POST /languages",
-    options: LanguagesParameters & RequestParameters
-  ): Promise<
-    Languages200Response | Languages400Response | Languages500Response
-  >;
-  (
-    route: "POST /sentiment",
-    options: SentimentParameters & RequestParameters
-  ): Promise<
-    Sentiment200Response | Sentiment400Response | Sentiment500Response
-  >;
+interface Routes {
+  "POST /analyze": [
+    AnalyzeParameters,
+    Promise<Analyze202Response | Analyze400Response | Analyze500Response>
+  ];
+  "GET /analyze/jobs/{jobId}": [
+    AnalyzeStatusParameters,
+    Promise<
+      | AnalyzeStatus200Response
+      | AnalyzeStatus404Response
+      | AnalyzeStatus500Response
+    >
+  ];
+  "GET /entities/health/jobs/{jobId}": [
+    HealthStatusParameters,
+    Promise<
+      | HealthStatus200Response
+      | HealthStatus404Response
+      | HealthStatus500Response
+    >
+  ];
+  "DELETE /entities/health/jobs/{jobId}": [
+    CancelHealthJobParameters,
+    Promise<
+      | CancelHealthJob202Response
+      | CancelHealthJob404Response
+      | CancelHealthJob500Response
+    >
+  ];
+  "POST /entities/health/jobs": [
+    HealthParameters,
+    Promise<Health202Response | Health400Response | Health500Response>
+  ];
+  "POST /entities/recognition/general": [
+    EntitiesRecognitionGeneralParameters,
+    Promise<
+      | EntitiesRecognitionGeneral200Response
+      | EntitiesRecognitionGeneral400Response
+      | EntitiesRecognitionGeneral500Response
+    >
+  ];
+  "POST /entities/recognition/pii": [
+    EntitiesRecognitionPiiParameters,
+    Promise<
+      | EntitiesRecognitionPii200Response
+      | EntitiesRecognitionPii400Response
+      | EntitiesRecognitionPii500Response
+    >
+  ];
+  "POST /entities/linking": [
+    EntitiesLinkingParameters,
+    Promise<
+      | EntitiesLinking200Response
+      | EntitiesLinking400Response
+      | EntitiesLinking500Response
+    >
+  ];
+  "POST /keyPhrases": [
+    KeyPhrasesParameters,
+    Promise<
+      KeyPhrases200Response | KeyPhrases400Response | KeyPhrases500Response
+    >
+  ];
+  "POST /languages": [
+    LanguagesParameters,
+    Promise<Languages200Response | Languages400Response | Languages500Response>
+  ];
+  "POST /sentiment": [
+    SentimentParameters,
+    Promise<Sentiment200Response | Sentiment400Response | Sentiment500Response>
+  ];
 }
 
 export interface TextAnalyticsClient {
