@@ -1,3 +1,4 @@
+import { HttpHeaders } from "@azure/core-https";
 import {
   AnalyzeBatchInput,
   StringIndexType,
@@ -5,38 +6,51 @@ import {
   LanguageBatchInput,
 } from "./models";
 
-export type AnalyzeParameters = AnalyzeBatchInput;
+export type RequestParameters = {
+  timeout?: number;
+  headers?: HttpHeaders;
+  body?: unknown;
+  queryParameters?: { [key: string]: any };
+};
+
+export type AnalyzeParameters = RequestParameters & {
+  body: AnalyzeBatchInput;
+};
 
 interface AnalyzeStatusParamProperties {
-  jobId: string;
-  showStats?: boolean;
   $top?: number;
   $skip?: number;
+  showStats?: boolean;
 }
 
-export type AnalyzeStatusParameters = AnalyzeStatusParamProperties;
+export type AnalyzeStatusParameters = RequestParameters & {
+  queryParameters?: AnalyzeStatusParamProperties;
+};
 
 interface HealthStatusParamProperties {
-  jobId: string;
   $top?: number;
   $skip?: number;
   showStats?: boolean;
 }
 
-export type HealthStatusParameters = HealthStatusParamProperties;
+export type HealthStatusParameters = RequestParameters & {
+  queryParameters?: HealthStatusParamProperties;
+};
 
-interface CancelHealthJobParamProperties {
-  jobId: string;
-}
+interface CancelHealthJobParamProperties {}
 
-export type CancelHealthJobParameters = CancelHealthJobParamProperties;
+export type CancelHealthJobParameters = RequestParameters &
+  CancelHealthJobParamProperties;
 
 interface HealthParamProperties {
   "model-version"?: string;
   stringIndexType?: StringIndexType;
 }
 
-export type HealthParameters = MultiLanguageBatchInput & HealthParamProperties;
+export type HealthParameters = RequestParameters & {
+  queryParameters?: HealthParamProperties;
+  body: MultiLanguageBatchInput;
+};
 
 interface EntitiesRecognitionGeneralParamProperties {
   "model-version"?: string;
@@ -44,8 +58,10 @@ interface EntitiesRecognitionGeneralParamProperties {
   stringIndexType?: StringIndexType;
 }
 
-export type EntitiesRecognitionGeneralParameters = MultiLanguageBatchInput &
-  EntitiesRecognitionGeneralParamProperties;
+export type EntitiesRecognitionGeneralParameters = RequestParameters & {
+  queryParameters?: EntitiesRecognitionGeneralParamProperties;
+  body: MultiLanguageBatchInput;
+};
 
 interface EntitiesRecognitionPiiParamProperties {
   "model-version"?: string;
@@ -54,8 +70,10 @@ interface EntitiesRecognitionPiiParamProperties {
   stringIndexType?: StringIndexType;
 }
 
-export type EntitiesRecognitionPiiParameters = MultiLanguageBatchInput &
-  EntitiesRecognitionPiiParamProperties;
+export type EntitiesRecognitionPiiParameters = RequestParameters & {
+  queryParameters?: EntitiesRecognitionPiiParamProperties;
+  body: MultiLanguageBatchInput;
+};
 
 interface EntitiesLinkingParamProperties {
   "model-version"?: string;
@@ -63,23 +81,30 @@ interface EntitiesLinkingParamProperties {
   stringIndexType?: StringIndexType;
 }
 
-export type EntitiesLinkingParameters = MultiLanguageBatchInput &
-  EntitiesLinkingParamProperties;
+export type EntitiesLinkingParameters = RequestParameters & {
+  queryParameters?: EntitiesLinkingParamProperties;
+  body: MultiLanguageBatchInput;
+};
 
 interface KeyPhrasesParamProperties {
   "model-version"?: string;
   showStats?: boolean;
 }
 
-export type KeyPhrasesParameters = MultiLanguageBatchInput &
-  KeyPhrasesParamProperties;
+export type KeyPhrasesParameters = RequestParameters & {
+  queryParameters?: KeyPhrasesParamProperties;
+  body: MultiLanguageBatchInput;
+};
 
 interface LanguagesParamProperties {
   "model-version"?: string;
   showStats?: boolean;
 }
 
-export type LanguagesParameters = LanguageBatchInput & LanguagesParamProperties;
+export type LanguagesParameters = RequestParameters & {
+  queryParameters?: LanguagesParamProperties;
+  body: LanguageBatchInput;
+};
 
 interface SentimentParamProperties {
   "model-version"?: string;
@@ -88,5 +113,7 @@ interface SentimentParamProperties {
   stringIndexType?: StringIndexType;
 }
 
-export type SentimentParameters = MultiLanguageBatchInput &
-  SentimentParamProperties;
+export interface SentimentParameters {
+  queryParameters?: SentimentParamProperties;
+  body: MultiLanguageBatchInput;
+}

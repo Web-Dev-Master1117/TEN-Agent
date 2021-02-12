@@ -16,20 +16,20 @@ async function main() {
     { id: "third", text: "asdfasdf asdfasdfasdfer" },
   ];
 
-  const languagesResult = await client.request("POST /sentiment", {
-    documents,
+  const languagesResult = await client.request("POST /languages", {
+    body: { documents },
   });
 
   if (languagesResult.status === 200) {
-    for (const result of languagesResult.parsedBody.documents) {
+    for (const result of languagesResult.body.documents) {
       console.log(
-        `Sentence with Id: '${result.id}' detected sentiment: ${
-          result.sentiment
-        } with ${result.confidenceScores[result.sentiment] * 100}% confidence`
+        `Sentence with Id: '${result.id}' detected language: ${
+          result.detectedLanguage.name
+        } with ${result.detectedLanguage.confidenceScore * 100}% confidence`
       );
     }
   } else {
-    console.error(languagesResult.parsedBody.error.message);
+    throw languagesResult.body.error;
   }
 }
 

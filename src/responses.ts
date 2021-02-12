@@ -9,11 +9,18 @@ import {
   LanguageResult,
   SentimentResponse,
 } from "./models";
-import { PipelineResponse, HttpHeaders } from "@azure/core-https";
+import {
+  PipelineResponse as PipelineResponseInternal,
+  HttpHeaders,
+} from "@azure/core-https";
 
 interface Analyze202Headers {
   "Operation-Location"?: string;
 }
+
+export type PipelineResponse = PipelineResponseInternal & {
+  body: unknown;
+};
 
 export type Analyze202Response = Analyze202Properties & PipelineResponse;
 
@@ -26,14 +33,14 @@ export type Analyze400Response = Analyze400Properties & PipelineResponse;
 
 interface Analyze400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Analyze500Response = Analyze500Properties & PipelineResponse;
 
 interface Analyze500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type AnalyzeStatus200Response = AnalyzeStatus200Properties &
@@ -41,7 +48,7 @@ export type AnalyzeStatus200Response = AnalyzeStatus200Properties &
 
 interface AnalyzeStatus200Properties {
   status: 200;
-  parsedBody: AnalyzeJobState;
+  body: AnalyzeJobState;
 }
 
 export type AnalyzeStatus404Response = AnalyzeStatus404Properties &
@@ -49,7 +56,7 @@ export type AnalyzeStatus404Response = AnalyzeStatus404Properties &
 
 interface AnalyzeStatus404Properties {
   status: 404;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type AnalyzeStatus500Response = AnalyzeStatus500Properties &
@@ -57,7 +64,7 @@ export type AnalyzeStatus500Response = AnalyzeStatus500Properties &
 
 interface AnalyzeStatus500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type HealthStatus200Response = HealthStatus200Properties &
@@ -65,7 +72,7 @@ export type HealthStatus200Response = HealthStatus200Properties &
 
 interface HealthStatus200Properties {
   status: 200;
-  parsedBody: HealthcareJobState;
+  body: HealthcareJobState;
 }
 
 export type HealthStatus404Response = HealthStatus404Properties &
@@ -73,7 +80,7 @@ export type HealthStatus404Response = HealthStatus404Properties &
 
 interface HealthStatus404Properties {
   status: 404;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type HealthStatus500Response = HealthStatus500Properties &
@@ -81,7 +88,7 @@ export type HealthStatus500Response = HealthStatus500Properties &
 
 interface HealthStatus500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 interface CancelHealthJob202Headers {
@@ -101,7 +108,7 @@ export type CancelHealthJob404Response = CancelHealthJob404Properties &
 
 interface CancelHealthJob404Properties {
   status: 404;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type CancelHealthJob500Response = CancelHealthJob500Properties &
@@ -109,7 +116,7 @@ export type CancelHealthJob500Response = CancelHealthJob500Properties &
 
 interface CancelHealthJob500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 interface Health202Headers {
@@ -127,14 +134,14 @@ export type Health400Response = Health400Properties & PipelineResponse;
 
 interface Health400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Health500Response = Health500Properties & PipelineResponse;
 
 interface Health500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesRecognitionGeneral200Response = EntitiesRecognitionGeneral200Properties &
@@ -142,7 +149,7 @@ export type EntitiesRecognitionGeneral200Response = EntitiesRecognitionGeneral20
 
 interface EntitiesRecognitionGeneral200Properties {
   status: 200;
-  parsedBody: EntitiesResult;
+  body: EntitiesResult;
 }
 
 export type EntitiesRecognitionGeneral400Response = EntitiesRecognitionGeneral400Properties &
@@ -150,7 +157,7 @@ export type EntitiesRecognitionGeneral400Response = EntitiesRecognitionGeneral40
 
 interface EntitiesRecognitionGeneral400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesRecognitionGeneral500Response = EntitiesRecognitionGeneral500Properties &
@@ -158,7 +165,7 @@ export type EntitiesRecognitionGeneral500Response = EntitiesRecognitionGeneral50
 
 interface EntitiesRecognitionGeneral500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesRecognitionPii200Response = EntitiesRecognitionPii200Properties &
@@ -166,7 +173,7 @@ export type EntitiesRecognitionPii200Response = EntitiesRecognitionPii200Propert
 
 interface EntitiesRecognitionPii200Properties {
   status: 200;
-  parsedBody: PiiResult;
+  body: PiiResult;
 }
 
 export type EntitiesRecognitionPii400Response = EntitiesRecognitionPii400Properties &
@@ -174,7 +181,7 @@ export type EntitiesRecognitionPii400Response = EntitiesRecognitionPii400Propert
 
 interface EntitiesRecognitionPii400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesRecognitionPii500Response = EntitiesRecognitionPii500Properties &
@@ -182,7 +189,7 @@ export type EntitiesRecognitionPii500Response = EntitiesRecognitionPii500Propert
 
 interface EntitiesRecognitionPii500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesLinking200Response = EntitiesLinking200Properties &
@@ -190,7 +197,7 @@ export type EntitiesLinking200Response = EntitiesLinking200Properties &
 
 interface EntitiesLinking200Properties {
   status: 200;
-  parsedBody: EntityLinkingResult;
+  body: EntityLinkingResult;
 }
 
 export type EntitiesLinking400Response = EntitiesLinking400Properties &
@@ -198,7 +205,7 @@ export type EntitiesLinking400Response = EntitiesLinking400Properties &
 
 interface EntitiesLinking400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type EntitiesLinking500Response = EntitiesLinking500Properties &
@@ -206,68 +213,68 @@ export type EntitiesLinking500Response = EntitiesLinking500Properties &
 
 interface EntitiesLinking500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type KeyPhrases200Response = KeyPhrases200Properties & PipelineResponse;
 
 interface KeyPhrases200Properties {
   status: 200;
-  parsedBody: KeyPhraseResult;
+  body: KeyPhraseResult;
 }
 
 export type KeyPhrases400Response = KeyPhrases400Properties & PipelineResponse;
 
 interface KeyPhrases400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type KeyPhrases500Response = KeyPhrases500Properties & PipelineResponse;
 
 interface KeyPhrases500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Languages200Response = Languages200Properties & PipelineResponse;
 
 interface Languages200Properties {
   status: 200;
-  parsedBody: LanguageResult;
+  body: LanguageResult;
 }
 
 export type Languages400Response = Languages400Properties & PipelineResponse;
 
 interface Languages400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Languages500Response = Languages500Properties & PipelineResponse;
 
 interface Languages500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Sentiment200Response = Sentiment200Properties & PipelineResponse;
 
 interface Sentiment200Properties {
   status: 200;
-  parsedBody: SentimentResponse;
+  body: SentimentResponse;
 }
 
 export type Sentiment400Response = Sentiment400Properties & PipelineResponse;
 
 interface Sentiment400Properties {
   status: 400;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
 
 export type Sentiment500Response = Sentiment500Properties & PipelineResponse;
 
 interface Sentiment500Properties {
   status: 500;
-  parsedBody: ErrorResponse;
+  body: ErrorResponse;
 }
