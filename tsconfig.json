@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "declaration": true,
+        "declarationMap": true,
+        "inlineSources": true,
+        "sourceMap": true,
+        "importHelpers": true,
+        "strict": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "module": "es6",
+        "outDir": "./dist-esm",
+        "lib": [
+            "dom",
+            "esnext"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "types",
+        "temp",
+        "browser",
+        "dist",
+        "dist-esm",
+        "./samples/**/*.ts"
+    ]
+}

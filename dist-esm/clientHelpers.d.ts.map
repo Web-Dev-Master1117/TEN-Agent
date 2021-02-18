@@ -1,0 +1,1 @@
+{"version":3,"file":"clientHelpers.d.ts","sourceRoot":"","sources":["../src/clientHelpers.ts"],"names":[],"mappings":"AAAA,OAAO,EAEL,eAAe,EAEf,QAAQ,EAER,WAAW,EACZ,MAAM,mBAAmB,CAAC;AAC3B,OAAO,EAAE,eAAe,EAAE,MAAM,kBAAkB,CAAC;AAKnD,wBAAgB,qBAAqB,CACnC,UAAU,EAAE,eAAe,EAC3B,OAAO,GAAE,eAAoB,GAC5B,QAAQ,CAUV;AAED,wBAAgB,2BAA2B,IAAI,WAAW,CAMzD"}

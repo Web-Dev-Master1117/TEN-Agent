@@ -330,7 +330,7 @@ interface ExtractedArguments<R extends keyof Routes> {
 function extractArguments<R extends keyof Routes>(
   ...args: RequestArgs<R>
 ): ExtractedArguments<R> {
-  let options: Routes[R]["options"] = undefined;
+  let options: Routes[R]["options"] = {};
   let pathParameters: string[] = [];
   for (const arg of args) {
     if (Array.isArray(arg)) {
@@ -409,9 +409,10 @@ function buildRequestUrl<R extends keyof Routes>(
   const url = new URL(`${baseUrl}/${path}`);
 
   if (options.queryParameters) {
-    const queryParams = options.queryParameters || {};
+    const queryParams = options.queryParameters;
+    queryParams["model-version"]
     for (const key of Object.keys(queryParams)) {
-      url.searchParams.append(key, queryParams[key]);
+      url.searchParams.append(key, (queryParams as any)[key]);
     }
   }
 
@@ -419,3 +420,6 @@ function buildRequestUrl<R extends keyof Routes>(
 }
 
 export default createTextAnalyticsClient;
+export * from "./models"
+export * from "./parameters"
+export * from "./responses"

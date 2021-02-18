@@ -1,10 +1,12 @@
 {
-  "name": "textanalytics-lowlevel",
+  "name": "@azure/textanalytics-lowlevel",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist-esm/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "keywords": [],
   "author": "",
@@ -13,13 +15,13 @@
     "@azure/ai-text-analytics": "^5.0.1",
     "@azure/core-auth": "^1.1.4",
     "@azure/core-https": "^1.0.0-alpha.20200925.1",
-    "@azure/identity": "^1.2.2",
-    "typescript": "^4.0.2"
+    "@azure/identity": "^1.2.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
     "dotenv": "^8.2.0",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
   }
 }
