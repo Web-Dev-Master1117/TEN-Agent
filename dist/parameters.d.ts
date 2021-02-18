@@ -93,4 +93,3 @@ export interface SentimentParameters {
     body: MultiLanguageBatchInput;
 }
 export {};
-//# sourceMappingURL=parameters.d.ts.map

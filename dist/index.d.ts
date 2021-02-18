@@ -118,4 +118,3 @@ export default createTextAnalyticsClient;
 export * from "./models";
 export * from "./parameters";
 export * from "./responses";
-//# sourceMappingURL=index.d.ts.map

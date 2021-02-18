@@ -36,7 +36,7 @@ const client = TextAnalytics(
   );
 
   const languagesResult = await client.request("POST /languages", {
-    body: { documents: { id: "1", text: "This is a test text" } },
+    body: { documents: [{ id: "1", text: "This is a test text" }] },
   });
 
   if (languagesResult.status === 200) {
@@ -51,6 +51,8 @@ const client = TextAnalytics(
     throw languagesResult.body.error;
   }
 }
+
+analyzeLanguage().catch(console.error)
 
 ```
 
@@ -70,7 +72,7 @@ const client = TextAnalytics(
   );
 
   const languagesResult = await client.requestUnchecked("POST /languages", {
-    body: { documents: { id: "1", text: "This is a test text" } },
+    body: { documents: [{ id: "1", text: "This is a test text" }] },
   });
 
   if (languagesResult.status === 200) {
@@ -85,5 +87,7 @@ const client = TextAnalytics(
     throw languagesResult.body.error;
   }
 }
+
+analyzeLanguage().catch(console.error)
 
 ```
